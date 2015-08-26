@@ -1,0 +1,94 @@
+<!-- Question -->
+
+<div class="container-fluid">
+      <!-- Creates the navbar -->
+      <!-- <nav class="navbar navbar-default navbar-inverse">-->
+        <!-- This creates the mechanism for collapse button -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" ng-init="navCollapsed = true" ng-click="navCollapsed = !navCollapsed">
+        <!-- This controls the number of lines in the image when the nav collapse -->
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        </button>
+        <!-- This is the brand on the left-hand side.
+        <a class="navbar-brand" href="#/dashboard"> WinPerson</a>
+         <a class="navbar-brand" href="#/job">Job</a> -->
+         <!--<a class="navbar-brand" href="#/question">Question</a>-->
+        <!-- This is what is the above collapse button points to when the mark-up below is collapsed -->
+        <div class="collapse navbar-collapse" ng-class="!navCollapsed && 'in'">
+          <!-- This is what "styles" the li's as navbar items -->
+          <ul class="nav navbar-nav navbar-right">
+            <!-- navbar-right pulls this element right -->
+            <!-- Using ng-show instead of ng-if because we need this mark-up to be in the dom when question controller
+            fires.  If it's not there (which it wouldn't be in the case of ng-if) then the scope of the question
+            controller will not be tied to this element. -->
+            <li>
+              <a href="/logout">sign-out</a>
+            </li>
+            <!-- <a ng-controller="signinController" class="btn btn-default navbar-btn navbar-right" href="#" ng-if="!isAuthenticated">sign-in</a> -->
+            <!-- Using ng-show instead of ng-if because we need this mark-up to be in the dom when question controller
+            fires.  If it's not there (which it wouldn't be in the case of ng-if) then the scope of the question
+            controller will not be tied to this element. -->
+          </ul>
+        </div>
+     <!-- </nav>-->
+</div>
+    <!-- question FORM --> 
+    <form ng-submit="submitquestionForm()" id="question-form" class="form-question" question="question">
+      
+      <div class="row">
+
+        <!--question -->
+
+        <!-- checking whether the form "question" with the "question" property is both $invalid AND $dirty.  If it is
+        insert the "has-error" class on the input field (i.e. insert a red border around the input field)
+        -->
+        <div class="control-group form-group col-md-4 col-md-offset-4"
+        ng-class="{'has-error':question.question.$invalid &&
+                             question.question.$dirty}">
+          
+           <label>Questions</label>
+          <!-- For this input field make it required, and have a max length of 25 -->
+          <textarea type="text" class="form-control" placeholder="write your questions here" question="question" ng-model="questionForm.question"  required>
+
+          <!-- Also, if question.question.$dirty is true, show the message depending upon the particular properties truthiness (e.g. required
+          and/or maxlength) -->
+          <span class="help-block has-error" ng-if="question.question.$dirty">
+            <span ng-show="question.question.$error.required">question is required.</span>
+          </span></textarea>
+        </div>
+        
+
+        <!--  Time Per Questions -->
+
+        <div class="control-group form-group col-md-4 col-md-offset-4"
+        ng-class="{'has-error':question.timePerQues.$invalid &&
+                              question.timePerQues.$dirty}">
+          <label>Time Per Questions</label>
+          <input type="timePerQues" class="form-control" placeholder="Time Per Questions" name="timePerQues" ng-model="questionForm.timePerQues" required >
+          <span class="help-block has-error" ng-if="question.timePerQues.$dirty">
+            <span ng-show="question.timePerQues.$error.required">timePerQues  is required.</span>
+            <span ng-show="question.timePerQues.$error.timePerQues">Not a valid timePerQues .</span>
+          </span>
+        </div>
+
+        <!-- Question Per Test -->
+
+        <div class="control-group form-group col-md-4 col-md-offset-4"
+        ng-class="{'has-error':question.quesPerTest.$invalid &&
+                              question.quesPerTest.$dirty}">
+          <label>Question Per Test</label>
+          <input type="quesPerTest" class="form-control" placeholder="Question Per Test" name="quesPerTest" ng-model="questionForm.quesPerTest" required >
+          <span class="help-block has-error" ng-if="question.quesPerTest.$dirty">
+            <span ng-show="question.quesPerTest.$error.required">quesPerTest  is required.</span>
+            <span ng-show="question.quesPerTest.$error.quesPerTest">Not a valid quesPerTest.</span>
+          </span>
+        </div>
+       
+<div class="control-group form-group col-md-4 col-md-offset-4">
+       <button class="btn btn-primary btn-lg btn-block" type="submit" ng-disabled="question.$invalid">
+        <span ng-show="!questionForm.loading">Create question</span>
+      </button>
+      </div>
+      </div>
+    </form>

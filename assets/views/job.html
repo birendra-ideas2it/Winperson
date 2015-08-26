@@ -1,0 +1,117 @@
+<!-- Job-->
+
+
+<div class="container-fluid">
+      <!-- Creates the navbar -->
+     <!-- <nav class="navbar navbar-default navbar-inverse">-->
+        <!-- This creates the mechanism for collapse button -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" ng-init="navCollapsed = true" ng-click="navCollapsed = !navCollapsed">
+        <!-- This controls the number of lines in the image when the nav collapse -->
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        </button>
+        <!-- This is the brand on the left-hand side. -->
+       <!-- <a class="navbar-brand" href="#/dashboard"> WinPerson</a>
+         <a class="navbar-brand" href="#/job">Job</a>-->
+         <!--<a class="navbar-brand" href="#/question">Question</a>-->
+        <!-- This is what is the above collapse button points to when the mark-up below is collapsed -->
+        <div class="collapse navbar-collapse" ng-class="!navCollapsed && 'in'">
+          <!-- This is what "styles" the li's as navbar items -->
+          <ul class="nav navbar-nav navbar-right">
+            <!-- navbar-right pulls this element right -->
+            <!-- Using ng-show instead of ng-if because we need this mark-up to be in the dom when signup controller
+            fires.  If it's not there (which it wouldn't be in the case of ng-if) then the scope of the signup
+            controller will not be tied to this element. -->
+            <li>
+              <a href="/logout">sign-out</a>
+            </li>
+            <!-- <a ng-controller="signinController" class="btn btn-default navbar-btn navbar-right" href="#" ng-if="!isAuthenticated">sign-in</a> -->
+            <!-- Using ng-show instead of ng-if because we need this mark-up to be in the dom when signup controller
+            fires.  If it's not there (which it wouldn't be in the case of ng-if) then the scope of the signup
+            controller will not be tied to this element. -->
+          </ul>
+        </div>
+      </nav>
+</div>
+    <!-- Job FORM --> 
+    <form ng-submit="submitJobForm()" id="job-form" class="form-job" title="job">
+    <div class="jumbotron">
+      <h2 class="form-job-heading">Create a Job</h2>
+
+      <div class="row">
+      <table class="table">
+
+        <!-- N A M E -->
+
+        <!-- checking whether the form "job" with the "title" property is both $invalid AND $dirty.  If it is
+        insert the "has-error" class on the input field (i.e. insert a red border around the input field)
+        -->
+        
+        <tr>
+
+        <div class="control-group form-group col-md-4 col-md-offset-4"
+        ng-class="{'has-error':job.title.$invalid &&
+                             job.title.$dirty}">
+          
+
+          <!-- For this input field make it required, and have a max length of 25 -->
+          <input type="text" class="form-control" placeholder="e.g Software Engineer" name="title" ng-model="jobForm.title" ng-maxlength="50" required>
+
+          <!-- Also, if job.title.$dirty is true, show the message depending upon the particular properties truthiness (e.g. required
+          and/or maxlength) -->
+          <span class="help-block has-error" ng-if="job.title.$dirty">
+            <span ng-show="job.title.$error.required">title is required.</span>
+            <span ng-show="job.title.$error.maxlength"> title cannot be more than 50 characters.</span>
+          </span>
+        </div>
+
+</tr>
+</div>
+        <!-- description -->
+<tr>
+        <div class="control-group form-group col-md-4 col-md-offset-4"
+          ng-class="{'has-error':job.description.$invalid &&
+                                job.description.$dirty}">
+          
+          <textarea type="text" class="form-control" placeholder="Description" title="description" ng-model="jobForm.description" ng-maxlength="50" required>
+          <span class="help-block has-error" ng-if="job.description.$dirty">
+            <span ng-show="job.description.$error.required">description is required.</span>
+            <span ng-show="job.description.$error.maxlength">The description cannot be more than 50 characters.</span>
+          </span></textarea>
+        </div>
+</tr>
+        <!-- experience -->
+
+        <div class="control-group form-group col-md-4 col-md-offset-4"
+        ng-class="{'has-error':job.experience.$invalid &&
+                              job.experience.$dirty}">
+          
+          <input type="experience" class="form-control" placeholder="Experience" title="experience" ng-model="jobForm.experience" required >
+          <span class="help-block has-error" ng-if="job.experience.$dirty">
+            <span ng-show="job.experience.$error.required">Experience is required.</span>
+            <span ng-show="job.experience.$error.experience">Not a valid experience </span>
+          </span>
+        </div>
+
+          <!-- salary -->
+
+        <div class="control-group form-group col-md-4 col-md-offset-4"
+          ng-class="{'has-error':job.salary.$invalid &&
+                                job.salary.$dirty}">
+          
+          <input type="text" class="form-control" placeholder="Salary" title="salary" ng-model="jobForm.salary" ng-maxlength="50" required>
+          <span class="help-block has-error" ng-if="job.salary.$dirty">
+            <span ng-show="job.salary.$error.required">salary is required.</span>
+            <span ng-show="job.salary.$error.maxlength">The salary cannot be more than 50 characters.</span>
+          </span>
+        </div>
+        
+
+       
+    <div class="control-group form-group col-md-4 col-md-offset-4">
+       <button class="btn btn-primary btn-lg btn-block" type="submit" ng-disabled="job.$invalid">
+        <span ng-show="!jobForm.loading">Next</span>
+      </button>
+      </div>
+    </form>
