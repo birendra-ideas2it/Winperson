@@ -33,6 +33,11 @@ winperson.config(function($routeProvider) {
         .when('/sendEmail', {
             templateUrl: '/views/sendemail.html',
             controller: 'InviteController'
+        })
+        .when('/login', {
+            templateUrl: '/views/login.html',
+            controller: 'UserController'
         });
+
 
 });

@@ -42,7 +42,7 @@ module.exports.routes = {
   //'POST /invite': 'InviteController.upload',
   'POST /sendEmail': 'InviteController.Sendemail',
   'POST /invite': 'InviteController.readCsvFile',
-  'POST /logout': 'UserController.logout'
+  'POST /login': 'UserController.logout'
 
   /***************************************************************************
   *                                                                          *
