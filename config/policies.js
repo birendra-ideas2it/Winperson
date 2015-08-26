@@ -52,10 +52,7 @@ module.exports.policies = {
 
     '*': "authenticated",
     UserController: {
-        "create": true,
-    },
-    LoginController: {
-        '*': true,
+        "*": true,
     },
     JobController: {
         '*': true,

@@ -35,13 +35,15 @@ module.exports.routes = {
   '/': {
     view: 'homepage'
   },
-  'POST /signup': 'SignupController.signup',
-  'PUT /login': 'LoginController.signin',
+  'POST /signup': 'UserController.signup',
+  'PUT /login': 'UserController.signin',
   'POST /job': 'JobController.create',
   'POST /question': 'QuestionController.createQuestion',
   //'POST /invite': 'InviteController.upload',
   'POST /sendEmail': 'InviteController.Sendemail',
   'POST /invite': 'InviteController.readCsvFile',
+  'POST /logout': 'UserController.logout'
+
   /***************************************************************************
   *                                                                          *
   * Custom routes here...                                                    *

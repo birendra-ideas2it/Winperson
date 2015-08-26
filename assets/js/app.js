@@ -9,11 +9,11 @@ winperson.config(function($routeProvider) {
     $routeProvider
         .when('/', {
             templateUrl: '/views/login.html',
-            controller: 'LoginController'
+            controller: 'UserController'
         })
         .when('/signup', {
             templateUrl: '/views/signup.html',
-            controller: 'SignupController'
+            controller: 'UserController'
         })
         .when('/job', {
             templateUrl: '/views/job.html',
