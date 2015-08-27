@@ -36,7 +36,7 @@ angular.module('winpersonApp').directive('fileModel', ['$parse', function($parse
                 .success(function(data) {
                     console.log('upload data', data);
                     if (data.result) {
-
+                    
                         //alert('file uploaded. See .tmp/uploads folder.');
                         window.location = '#/job';
                     }
@@ -48,46 +48,22 @@ angular.module('winpersonApp').directive('fileModel', ['$parse', function($parse
         }
     }])
     // controller for the send request to server side
-    .controller('InviteController', ['$scope', '$http', 'fileUpload', function($scope, $http, fileUpload) {
+    .controller('InviteController', ['$scope', '$http','$location', 'fileUpload', function($scope, $http,$location, fileUpload) {
         /**
          *This function is used for uploading a csv file.
          */
         $scope.uploadFile = function() {
             var file = $scope.myFile;
-            console.log('file is ', file);
+            if (($scope.myFile.name.substring($scope.myFile.name.lastIndexOf('.') + 1) != 'csv')) {
+               $scope.errorMsg='Soryy!!!! please upload valid csv file';
+               if($scope.errorMsg){
+                  alert($scope.errorMsg);
+                  return ;
+               }    
+              }
             console.dir(file);
             var uploadUrl = "/invite";
             fileUpload.uploadFileToUrl(file, uploadUrl);
-        }
-
-        /**
-         *This function is used for send email to applicant.
-         */
-        $scope.sendEmailto = function() {
-
-            // Set the loading state (i.e. show loading spinner)
-            $scope.emailForm.loading = true;
-            // Submit request to Sails.
-            $http.post('/sendEmail', {
-                    email: $scope.emailForm.email
-                })
-                .then(function onSuccess(sailsResponse) {
-                    window.location = '#/job';
-                })
-                .catch(function onError(sailsResponse) {
-
-                    // Handle known error type(s).
-                    // If using sails-disk adpater -- Handle Duplicate Key
-                    var emailAddressAlreadyInUse = sailsResponse.status == 409;
-
-                    if (emailAddressAlreadyInUse) {
-                        toastr.error('That email address has already been taken, please try again.', 'Error');
-                        return;
-                    }
-
-                })
-                .finally(function eitherWay() {
-                    $scope.emailForm.loading = false;
-                })
         };
+
     }]);

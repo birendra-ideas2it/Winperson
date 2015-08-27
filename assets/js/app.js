@@ -34,6 +34,10 @@ winperson.config(function($routeProvider) {
             templateUrl: '/views/sendemail.html',
             controller: 'InviteController'
         })
+        .when('/test/:token', {
+            templateUrl: '/views/test.html',
+            controller: 'TestpageController'
+        })
         .when('/login', {
             templateUrl: '/views/login.html',
             controller: 'UserController'

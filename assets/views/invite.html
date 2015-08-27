@@ -40,8 +40,8 @@
            <!--<button ng-click="selectFile()">Upload Your File</button>
     <input type="file" style="display:none"
    id="file" name='file' onchange="angular.element(this).scope().fileNameChanged()" />-->
-           <input type="file" file-model="myFile" />
-           <button ng-click="uploadFile()">upload me</button>
+           <input type="file" file-model="myFile" file-upload accept=".csv"/>
+           <button show-notifications ng-click="uploadFile()">Invite</button>
        </form>
    </div>
    

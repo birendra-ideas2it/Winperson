@@ -24,7 +24,6 @@ angular.module('winpersonApp').controller('JobController', ['$scope', '$http', '
                 salary: $scope.jobForm.salary
             })
             .then(function onSuccess(sailsResponse) {
-                console.log('-----hi', sailsResponse.data.id);
                 var id = sailsResponse.data.id;
                 //window.location = '#/question';
                 $location.path('/question/' + id);

@@ -9,38 +9,64 @@ var nodemailer = require('nodemailer');
 var parse = require('csv-parse');
 var fs = require("fs");
 var csv = require('fast-csv');
-var randomstring = require("randomstring");
+var randtoken = require("rand-token");
+
 module.exports = {
 
     /**
-     *This Function used for read information from csv file and store into databse.
+     *This Function used for read information from csv file and store into databse and send mail to each applicant.
      *
      */
     readCsvFile: function(req, res) {
+        
         req.file('file').upload(function(err, files) {
             var stream = fs.createReadStream(files[0].fd);
             var csvStream = csv()
                 .on("data", function(data) {
+
+                    var token=randtoken.generate(32);
                     console.log(data);
                     Invite.create({
                         firstName: data[0],
                         lastName: data[1],
                         email: data[2],
                         phoneNo: data[3],
-                        token: randomstring.generate()
+                        token: token
                     }, function inviteCreated(err, newinvite) {
                         if (err) {
 
                             console.log("err: ", err);
                             console.log("err.invalidAttributes: ", err.invalidAttributes)
 
-
-
                             // Otherwise, send back something reasonable as our error response.
                             return res.negotiate(err);
                         }
+                         // create reusable transporter object using SMTP transport
+                        var transporter = nodemailer.createTransport({
+                        service: 'Gmail',
+                        auth: {
+                            user: 'nithitest1@gmail.com',
+                            pass: 'test!@#$'
+                        }
+                    });
+                        // setup e-mail data with unicode symbols
+                        var mailOptions = {
+                            from: 'Winperson <nithitest1@gmail.com>', 
+                            to: data[2], 
+                            subject: 'Winperson Invite',
+                            text: 'Winperson', 
+                            html: '<p>Hi'+' '+data[0]+',' + '</b>Nithi Manager has invited you to interview for the Job position at Ideas2It. Click the link below to accept the invitation http://localhost:1337/#/test/'+token + ' ' +'We are here to help you with every step along the way. Feel free to reach out to us at helpdesk@easyhire.me. We would love to hear from you! Thanks.</p>'
+                        };
 
-                        return res.ok();
+                         // send mail with defined transport object
+                        transporter.sendMail(mailOptions, function(error, info) {
+                            if (error) {
+                                return console.log(error);
+                            }
+                            console.log('Message sent: ' + info.response);
+                            //res.ok();
+                        });
+                       
                     });
                 })
 
@@ -50,57 +76,9 @@ module.exports = {
 
             stream.pipe(csvStream);
         });
+
+         return res.send({
+            result:true
+         });
     },
-
-    /**
-     *This Function used for send email to applicant.
-     *
-     */
-
-    Sendemail: function(req, res) {
-        var params = req.params.all();
-        console.log(params);
-        if (!params.email) {
-            res.send(500);
-        }
-
-        var msg = [];
-        msg = 'Someone Has Contact You From the Website!\n';
-        msg += '------------------------------------------\n';
-
-        if (params.email) {
-            msg += 'Email: ' + params.email + '\n';
-        }
-
-        // create reusable transporter object using SMTP transport
-        var transporter = nodemailer.createTransport({
-            service: 'Gmail',
-            auth: {
-                user: 'nithitest1@gmail.com',
-                pass: 'test!@#$'
-            }
-        });
-        // NB! No need to recreate the transporter object. You can use
-        // the same transporter object for all e-mails
-
-        // setup e-mail data with unicode symbols
-        var mailOptions = {
-            from: 'TEST Foo ✔ <nithitest1@gmail.com>', 
-            to: params.email, 
-            subject: 'Hello ✔',
-            text: 'Hello world ✔', 
-            html: '<b>Hello world ✔</b>' 
-        };
-
-        // send mail with defined transport object
-        transporter.sendMail(mailOptions, function(error, info) {
-            if (error) {
-                return console.log(error);
-            }
-            console.log('Message sent: ' + info.response);
-            res.ok();
-        });
-    }
-
-
 };
