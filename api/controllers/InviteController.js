@@ -9,7 +9,6 @@ var nodemailer = require('nodemailer');
 var parse = require('csv-parse');
 var fs = require("fs");
 var csv = require('fast-csv');
-//var randtoken = require('rand-token');
 var randomstring = require("randomstring");
 module.exports = {
 
@@ -18,10 +17,7 @@ module.exports = {
      *
      */
     readCsvFile: function(req, res) {
-        console.log('---------hi am in read readCsvFile-----------');
         req.file('file').upload(function(err, files) {
-            //var stream = files[0].fd;
-            console.log('-------stream-----', files[0].fd);
             var stream = fs.createReadStream(files[0].fd);
             var csvStream = csv()
                 .on("data", function(data) {
@@ -62,7 +58,6 @@ module.exports = {
      */
 
     Sendemail: function(req, res) {
-        console.log('-----hii Send Email--------');
         var params = req.params.all();
         console.log(params);
         if (!params.email) {
@@ -90,11 +85,11 @@ module.exports = {
 
         // setup e-mail data with unicode symbols
         var mailOptions = {
-            from: 'TEST Foo ✔ <nithitest1@gmail.com>', // sender address
-            to: params.email, // list of receivers
-            subject: 'Hello ✔', // Subject line
-            text: 'Hello world ✔', // plaintext body
-            html: '<b>Hello world ✔</b>' // html body
+            from: 'TEST Foo ✔ <nithitest1@gmail.com>', 
+            to: params.email, 
+            subject: 'Hello ✔',
+            text: 'Hello world ✔', 
+            html: '<b>Hello world ✔</b>' 
         };
 
         // send mail with defined transport object

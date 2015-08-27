@@ -39,7 +39,6 @@ module.exports.routes = {
   'PUT /login': 'UserController.signin',
   'POST /job': 'JobController.create',
   'POST /question': 'QuestionController.createQuestion',
-  //'POST /invite': 'InviteController.upload',
   'POST /sendEmail': 'InviteController.Sendemail',
   'POST /invite': 'InviteController.readCsvFile',
   'POST /login': 'UserController.logout'

@@ -25,8 +25,6 @@ angular.module('winpersonApp').controller('UserController', ['$scope', '$http', 
                 password: $scope.signupForm.password
             })
             .then(function onSuccess(sailsResponse) {
-
-                console.log('-----signup response----');
                 window.location = '/';
             })
             .catch(function onError(sailsResponse) {

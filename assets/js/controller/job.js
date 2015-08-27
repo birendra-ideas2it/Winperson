@@ -6,8 +6,7 @@
  * @docs        :: http://sailsjs.org/#!documentation/models
  */
 angular.module('winpersonApp').controller('JobController', ['$scope', '$http', '$location', 'toastr', function($scope, $http, $location, toastr) {
-    // set-up loading state
-
+    
     /**
      *This function is used for send request submitjob .
      */

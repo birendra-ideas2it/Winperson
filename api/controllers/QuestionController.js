@@ -10,11 +10,7 @@ module.exports = {
     /**
      *This function is used for creating questions.
      */
-
-
-
     createQuestion: function(req, res) {
-        console.log('hiiiii--Create-Question-----QuestionController');
         var questionstring = JSON.stringify(req.body);
         console.log(questionstring);
         var jsonObject = JSON.parse(questionstring);
@@ -34,16 +30,16 @@ module.exports = {
                         // Otherwise, send back something reasonable as our error response.
                     return res.negotiate(err);
                 }
-                // Send back the  response
-
             });
         }
+        //update to job model with timePerQues and quesPerTest
         Job.update({
             id: req.body.jobid
         }, {
             timePerQues: req.body.timePerQues,
             quesPerTest: req.body.quesPerTest
         }).exec(function(e1, r1) {
+            // Send back the  response
             return res.ok();
         });
     }

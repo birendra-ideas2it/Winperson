@@ -17,7 +17,6 @@ passport.deserializeUser(function(id, done) {
         done(err, user);
     });
 });
-
 passport.use(new LocalStrategy({
         usernameField: 'email',
         passwordField: 'password'

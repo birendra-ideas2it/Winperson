@@ -1,4 +1,4 @@
-<!-- Question -->
+<!-- Question Form-->
 
 <div class="container-fluid">
       <!-- Creates the navbar -->
@@ -64,8 +64,8 @@
         <div class="control-group form-group col-md-4 col-md-offset-4"
         ng-class="{'has-error':question.timePerQues.$invalid &&
                               question.timePerQues.$dirty}">
-          <label>Time Per Questions</label>
-          <input type="timePerQues" class="form-control" placeholder="Time Per Questions" name="timePerQues" ng-model="questionForm.timePerQues" required >
+          <label>Time Per Question</label>
+          <input type="timePerQues" class="form-control" placeholder="Time Per Question" name="timePerQues" ng-model="questionForm.timePerQues" required >
           <span class="help-block has-error" ng-if="question.timePerQues.$dirty">
             <span ng-show="question.timePerQues.$error.required">timePerQues  is required.</span>
             <span ng-show="question.timePerQues.$error.timePerQues">Not a valid timePerQues .</span>
@@ -77,8 +77,8 @@
         <div class="control-group form-group col-md-4 col-md-offset-4"
         ng-class="{'has-error':question.quesPerTest.$invalid &&
                               question.quesPerTest.$dirty}">
-          <label>Question Per Test</label>
-          <input type="quesPerTest" class="form-control" placeholder="Question Per Test" name="quesPerTest" ng-model="questionForm.quesPerTest" required >
+          <label>Questions Per Test</label>
+          <input type="quesPerTest" class="form-control" placeholder="Questions Per Test" name="quesPerTest" ng-model="questionForm.quesPerTest" required >
           <span class="help-block has-error" ng-if="question.quesPerTest.$dirty">
             <span ng-show="question.quesPerTest.$error.required">quesPerTest  is required.</span>
             <span ng-show="question.quesPerTest.$error.quesPerTest">Not a valid quesPerTest.</span>

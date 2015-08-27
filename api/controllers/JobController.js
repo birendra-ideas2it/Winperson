@@ -13,8 +13,6 @@ module.exports = {
      */
 
     create: function(req, res) {
-
-        console.log('hiiiiii--i am in JobController');
         Job.create({
             title: req.param('title'),
             description: req.param('description'),
@@ -25,7 +23,7 @@ module.exports = {
 
                 console.log("err: ", err);
                 console.log("err.invalidAttributes: ", err.invalidAttributes)
-                    // Otherwise, send back something reasonable as our error response.
+                // Otherwise, send back something reasonable as our error response.
                 return res.negotiate(err);
             }
 

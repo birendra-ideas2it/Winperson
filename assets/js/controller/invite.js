@@ -5,6 +5,8 @@
  * @description ::  This file for angular routing and request send to Server.
  * @docs        :: http://sailsjs.org/#!documentation/models
  */
+
+ //directives for file uploading 
 angular.module('winpersonApp').directive('fileModel', ['$parse', function($parse) {
         return {
             restrict: 'A',
@@ -20,6 +22,7 @@ angular.module('winpersonApp').directive('fileModel', ['$parse', function($parse
             }
         }
     }])
+  //services for http file uploading
     .service('fileUpload', ['$http', function($http) {
         this.uploadFileToUrl = function(file, uploadUrl) {
             var fd = new FormData();
@@ -44,6 +47,7 @@ angular.module('winpersonApp').directive('fileModel', ['$parse', function($parse
                 });
         }
     }])
+    // controller for the send request to server side
     .controller('InviteController', ['$scope', '$http', 'fileUpload', function($scope, $http, fileUpload) {
         /**
          *This function is used for uploading a csv file.
@@ -59,13 +63,10 @@ angular.module('winpersonApp').directive('fileModel', ['$parse', function($parse
         /**
          *This function is used for send email to applicant.
          */
-
-
         $scope.sendEmailto = function() {
 
             // Set the loading state (i.e. show loading spinner)
             $scope.emailForm.loading = true;
-            console.log('------Client invite ctrl', $scope.emailForm.email);
             // Submit request to Sails.
             $http.post('/sendEmail', {
                     email: $scope.emailForm.email

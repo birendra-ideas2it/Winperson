@@ -15,7 +15,6 @@ angular.module('winpersonApp').controller('QuestionController', ['$scope', '$htt
 
         // Set the loading state (i.e. show loading spinner)
         $scope.questionForm.loading = true;
-        console.log('--------------', $scope.questionForm.question);
         var jsonObject = JSON.parse($scope.questionForm.question);
 
         // Submit request to Sails.
